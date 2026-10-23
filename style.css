@@ -135,3 +135,12 @@ main{align-self:start;margin:0 auto}
  #arbitrage-results,#roi-results,#maximum-results,#page-compare .payback-chart .chart-graph-view,#page-compare .payback-chart .chart-table-view{grid-template-columns:minmax(0,1fr)}
  #arbitrage-results>figure,#roi-results>figure,#maximum-results>figure,#page-compare .payback-group,#page-compare .chart-table-group{padding:18px}
 }
+#global-date-navigation .global-chart-view{margin:0 0 0 auto;display:flex;gap:4px}
+#global-date-navigation .global-chart-view button{padding:7px 11px;font:600 12px system-ui;text-decoration:none;border-radius:6px;background:var(--light);color:var(--green)}
+#global-date-navigation .global-chart-view button[aria-pressed=true]{background:var(--green);color:white}
+@media(max-width:480px){#global-date-navigation{gap:4px}#global-date-navigation .global-chart-view button{padding:7px;font-size:11px}#global-date-navigation .date-nav-range{display:none}}
+#page-data{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:20px;align-items:start}
+#page-data>.intro{grid-column:1/-1;margin-bottom:10px}
+#page-data>.two-grid{display:contents}
+#page-data .content-card{min-width:0;margin:0}
+@media(max-width:760px){#page-data{grid-template-columns:minmax(0,1fr)}}
