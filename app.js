@@ -3,9 +3,9 @@ import {proposalKind,proposalLabel,appendProposalName,orderProposals} from './pr
 import {rawUsageYear,usageCsv} from './usage-export.js';
 import {createCalculationCache} from './calculation-cache.js';
 import {metricBars} from './metric-bars.js?v=global-view';
-import {paybackChart,comparisonMetrics} from './payback-chart.js?v=panel-axis';
+import {paybackChart,comparisonMetrics} from './payback-chart.js?v=no-bar-axis';
 import {ensureShading} from './shading.js?v=northern-trees';
-import {groupedSavingsChart} from './savings-chart.js?v=proposal-panels';
+import {groupedSavingsChart} from './savings-chart.js?v=no-bar-axis';
 import {localStamp} from './calendar.js';
 import {historicalProject,historicalInput,historicalController,resultSummary,optimizationSignature} from './historical.js?v=cash-no-wear';
 import {arbitrageSettings as batterySettings} from './arbitrage.js?v=cash-no-wear';
