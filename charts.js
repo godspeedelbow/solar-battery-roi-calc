@@ -1,4 +1,4 @@
-import {chartView} from './chart-view.js';
+import {chartView} from './chart-view.js?v=separate-tables';
 const NS='http://www.w3.org/2000/svg';
 const el=(tag,attrs={},text)=>{const n=document.createElementNS(NS,tag);for(const [k,v]of Object.entries(attrs))n.setAttribute(k,String(v));if(text!==undefined)n.textContent=text;return n;};
 export const monthLabel=value=>['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][Number(value.split('-')[1])-1];

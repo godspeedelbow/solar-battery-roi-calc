@@ -1,8 +1,8 @@
 import {createCalculationCache} from './calculation-cache.js';
-import {metricBars} from './metric-bars.js?v=table-view';
-import {paybackChart,comparisonMetrics} from './payback-chart.js?v=table-view';
+import {metricBars} from './metric-bars.js?v=separate-tables';
+import {paybackChart,comparisonMetrics} from './payback-chart.js?v=separate-tables';
 import {ensureShading} from './shading.js?v=northern-trees';
-import {groupedSavingsChart} from './savings-chart.js?v=table-view';
+import {groupedSavingsChart} from './savings-chart.js?v=separate-tables';
 import {localStamp} from './calendar.js';
 import {historicalProject,historicalInput,historicalController,resultSummary,optimizationSignature} from './historical.js?v=cash-no-wear';
 import {arbitrageSettings as batterySettings} from './arbitrage.js?v=cash-no-wear';
@@ -13,7 +13,7 @@ import {loadStoredProject,storeProject,loadSimulation,storeSimulation} from './s
 import {referenceWindow,referenceAligned} from './reference-period.js';
 import {loadForecasts,makeSolarForecaster} from './forecasts.js?v=tree-shading';
 import {arbitrageBreakdown} from './arbitrage.js?v=cash-no-wear';
-import {timeChart,monthLabel} from './charts.js?v=table-view';
+import {timeChart,monthLabel} from './charts.js?v=separate-tables';
 import {mergeInvoiceReference,importCharge} from './tariffs.js';
 import {fetchPrices} from './prices.js';
 import {solarSettings} from './solar.js?v=nne-final';
