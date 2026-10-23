@@ -144,3 +144,4 @@ main{align-self:start;margin:0 auto}
 #page-data>.two-grid{display:contents}
 #page-data .content-card{min-width:0;margin:0}
 @media(max-width:760px){#page-data{grid-template-columns:minmax(0,1fr)}}
+#roi-results .metric-bar-row strong{font-weight:400}
