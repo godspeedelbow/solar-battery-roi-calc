@@ -1,0 +1,2 @@
+export function rawUsageYear(rows,startYear){const start=`${startYear}-10-01 00:00`,end=`${startYear+1}-10-01 00:00`;return rows.filter(r=>r.localTime>=start&&r.localTime<end);}
+export function usageCsv(rows){const quote=value=>'"'+String(value??'').replaceAll('"','""')+'"';return '\ufeff'+[['UTC time','Local time (Europe/Stockholm)','Usage (kWh)','Source row'],...rows.map(r=>[r.time,r.localTime,r.kwh,r.sourceRow])].map(row=>row.map(quote).join(',')).join('\r\n')+'\r\n';}

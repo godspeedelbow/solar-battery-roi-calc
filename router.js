@@ -1,6 +1,6 @@
 const referenceYear=value=>/^\d{4}-\d{4}$/.test(value)&&Number(value.slice(5))===Number(value.slice(0,4))+1;
 export function validPeriod(value){if(/^\d{4}$/.test(value))return true;if(/^\d{4}-(0[1-9]|1[0-2])$/.test(value))return true;if(!/^\d{4}-\d{2}-\d{2}$/.test(value))return false;const t=Date.parse(value+'T00:00:00Z');return Number.isFinite(t)&&new Date(t).toISOString().slice(0,10)===value;}
-const sections = new Set(['compare', 'house', 'data', 'strategy', 'roi', 'maximum']);
+const sections = new Set(['compare', 'house', 'data', 'strategy', 'roi', 'maximum', 'usage-data']);
 export function parseRoute(hash) {
  try {
   const parts = hash.replace(/^#\/?/, '').split('/');
