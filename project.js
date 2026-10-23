@@ -1,4 +1,4 @@
-import {proposalKind} from './proposal-kind.js';
+import {proposalKind} from './proposal-kind.js?v=plain-tags';
 import {validateShading} from './shading.js?v=northern-trees';
 import {calculateRoi,roiSettings} from './roi.js';
 import {arbitrageSettings} from './arbitrage.js?v=cash-no-wear';

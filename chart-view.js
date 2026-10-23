@@ -1,4 +1,4 @@
-import {appendProposalName} from './proposal-kind.js';
+import {appendProposalName} from './proposal-kind.js?v=plain-tags';
 export function chartView(figure,{columns,rows,tables,key}){
  const title=figure.querySelector('figcaption'),graph=document.createElement('div');graph.className='chart-graph-view';for(const child of [...figure.children])if(child!==title)graph.append(child);
  const controls=document.createElement('div');controls.className='chart-view-toggle';controls.setAttribute('role','group');controls.setAttribute('aria-label','View '+(title?.textContent||'chart'));

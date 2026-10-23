@@ -1,5 +1,5 @@
-import {appendProposalName} from './proposal-kind.js';
-import {chartView} from './chart-view.js?v=proposal-kinds';
+import {appendProposalName} from './proposal-kind.js?v=plain-tags';
+import {chartView} from './chart-view.js?v=plain-tags';
 export const comparisonMetrics={
  payback:{label:'Break-even period',title:'Break-even by proposal · years',unit:'years',note:'Lower is better. Investment divided by annual net savings.'},
  annual:{label:'Income per year',title:'Annual net savings by proposal · SEK/year',unit:'SEK/year',note:'Higher is better. Avoided electricity costs plus export income, after charging costs and losses; not gross export revenue.'},
