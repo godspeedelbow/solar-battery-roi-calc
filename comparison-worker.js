@@ -1,0 +1,2 @@
+import {historicalInput,historicalController,resultSummary} from './historical.js?v=cash-no-wear';
+self.onmessage=({data})=>{const {key,project,proposal,dataset}=data;try{const result=historicalController(historicalInput(project,proposal,dataset),project,proposal);self.postMessage({key,savings:resultSummary(result,dataset.period.id).savings});}catch(error){self.postMessage({key,error:error.message});}};

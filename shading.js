@@ -1,0 +1,26 @@
+// User estimates, stored separately from roof orientation and weather inputs.
+export const shadingReference={
+ nearbyTree:{distanceM:10,crownWidthM:5,topElevationDeg:45,bearingDeg:null,position:'West of the house, along the extension of the north-side wall',referenceHeight:'Roof height',growing:true,affectedRoofId:'roof-2'},
+ westernTreeLine:{elevationDeg:5,startBearingDeg:180,endBearingDeg:360,extentStatus:'Approximate western half of the horizon; exact endpoints unmeasured'},
+ northernTrees:{affectedRoofId:'roof-3',clearAfterBearingDeg:112.5},
+ status:'Applied geometric shading scenario. Nearby-tree bearing defaults to 289 degrees if unset; crown shape and panel-specific shading remain unconfirmed.'
+};
+export function ensureShading(house){if(house.shading){if(!house.shading.northernTrees){house.shading.northernTrees=structuredClone(shadingReference.northernTrees);return true;}return false;}house.shading=structuredClone(shadingReference);return true;}
+export function validateShading(shading){if(!shading)return;for(const [obj,key,min,max]of [[shading.nearbyTree,'distanceM',0,10000],[shading.nearbyTree,'crownWidthM',0,1000],[shading.nearbyTree,'topElevationDeg',0,90],[shading.nearbyTree,'bearingDeg',0,360],[shading.westernTreeLine,'elevationDeg',0,90],[shading.westernTreeLine,'startBearingDeg',0,360],[shading.westernTreeLine,'endBearingDeg',0,360]]){const v=obj?.[key];if(v!==null&&(!Number.isFinite(v)||v<min||v>max))throw Error('Invalid shading parameter: '+key);}if(shading.northernTrees&&(!Number.isFinite(shading.northernTrees.clearAfterBearingDeg)||shading.northernTrees.clearAfterBearingDeg<0||shading.northernTrees.clearAfterBearingDeg>180))throw Error('Invalid northern tree clearance bearing.');if(typeof shading.nearbyTree.growing!=='boolean')throw Error('Invalid tree growth flag.');}
+
+const RAD=Math.PI/180;
+// NOAA fractional-year approximation; azimuth clockwise from north, geometric elevation.
+// https://gml.noaa.gov/grad/solcalc/solareqns.PDF
+export function sunPosition(time,latitude,longitude){const d=new Date(time),year=d.getUTCFullYear(),day=(Date.UTC(year,d.getUTCMonth(),d.getUTCDate())-Date.UTC(year,0,1))/86400000+1,h=d.getUTCHours()+d.getUTCMinutes()/60,days=(Date.UTC(year+1,0,1)-Date.UTC(year,0,1))/86400000,g=2*Math.PI/days*(day-1+(h-12)/24),eq=229.18*(.000075+.001868*Math.cos(g)-.032077*Math.sin(g)-.014615*Math.cos(2*g)-.040849*Math.sin(2*g)),dec=.006918-.399912*Math.cos(g)+.070257*Math.sin(g)-.006758*Math.cos(2*g)+.000907*Math.sin(2*g)-.002697*Math.cos(3*g)+.00148*Math.sin(3*g),ha=((h*60+eq+4*longitude)/4-180)*RAD,lat=latitude*RAD,elevation=Math.asin(Math.sin(lat)*Math.sin(dec)+Math.cos(lat)*Math.cos(dec)*Math.cos(ha));const azimuth=(Math.atan2(Math.sin(ha),Math.cos(ha)*Math.sin(lat)-Math.tan(dec)*Math.cos(lat))/RAD+180+360)%360;return {elevationDeg:elevation/RAD,azimuthDeg:azimuth};}
+const inSector=(angle,start,end)=>end-start>=360||((angle-start+360)%360)<=((end-start+360)%360);
+export function directBlocked(sun,shading,roofId){if(!shading||shading.enabled===false||sun.elevationDeg<=0)return false;if(shading.northernTrees?.affectedRoofId===roofId&&sun.azimuthDeg<shading.northernTrees.clearAfterBearingDeg)return true;const line=shading.westernTreeLine,tree=shading.nearbyTree;if(line&&inSector(sun.azimuthDeg,line.startBearingDeg,line.endBearingDeg)&&sun.elevationDeg<line.elevationDeg)return true;if(tree&&tree.affectedRoofId===roofId){const bearing=tree.bearingDeg??289,halfWidth=Math.atan2(tree.crownWidthM/2,Math.max(.01,tree.distanceM))/RAD,difference=Math.abs((sun.azimuthDeg-bearing+540)%360-180);if(difference<=halfWidth&&sun.elevationDeg<tree.topElevationDeg)return true;}return false;}
+const geometryCache=new Map();
+export function shadedIrradiance({time,g,solar,house,roof,approximateDirectFraction=null}){
+ if(!house.shading||house.shading.enabled===false||g<=0)return g;
+ const key=JSON.stringify([time,house.latitude,house.longitude,house.shading,roof.id,roof.tilt,roof.azimuth]);let geometry=geometryCache.get(key);
+ if(!geometry){let incidence=0,blocked=0,horizontal=0;for(let j=0;j<6;j++){const sun=sunPosition(Date.parse(time)+(j+.5)*600000,house.latitude,house.longitude),el=sun.elevationDeg*RAD;if(el<=0)continue;const cos=Math.max(0,Math.sin(el)*Math.cos(roof.tilt*RAD)+Math.cos(el)*Math.sin(roof.tilt*RAD)*Math.cos((sun.azimuthDeg-roof.azimuth)*RAD));incidence+=cos;horizontal+=Math.sin(el);if(directBlocked(sun,house.shading,roof.id))blocked+=cos;}geometry={blockedFraction:incidence?blocked/incidence:0,beamRatio:horizontal?incidence/horizontal:0};if(geometryCache.size>100000)geometryCache.clear();geometryCache.set(key,geometry);}
+ if(!geometry.blockedFraction)return g;
+ let fraction=approximateDirectFraction;
+ if(fraction===null){if(!Number.isFinite(solar?.direct_radiation)||!Number.isFinite(solar?.diffuse_radiation))throw Error('Direct and diffuse sunlight are required for tree shading.');const beam=Math.max(0,solar.direct_radiation)*geometry.beamRatio,diffuse=Math.max(0,solar.diffuse_radiation)*(1+Math.cos(roof.tilt*RAD))/2,ground=Math.max(0,solar.shortwave_radiation??0)*.2*(1-Math.cos(roof.tilt*RAD))/2;fraction=beam+diffuse+ground>0?beam/(beam+diffuse+ground):0;}
+ return g*(1-Math.max(0,Math.min(1,fraction))*geometry.blockedFraction);
+}

@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "source": {
+    "type": "user_supplied_image_and_orientation_correction",
+    "image": "sources/house-roof-overview.png",
+    "received_on": "2026-10-16",
+    "user_correction": "Left panels face WNW; others face SSW, not SSE. Directions are 90 degrees apart."
+  },
+  "orientation_precision": "User-supplied phone-compass readings; true/magnetic north setting and sensor accuracy not verified.",
+  "azimuth_conventions": {
+    "bearing": "Clockwise from north: N=0, E=90, S=180, W=270. Used throughout stored house data and app."
+  },
+  "roofs": [
+    {
+      "id": "roof-1",
+      "name": "SSW roof",
+      "image_reference": "Other panel group, to the right of the WNW group",
+      "compass_direction": "SSW",
+      "approximate_bearing_degrees": 202.5,
+      "measured_bearing_degrees": 199,
+      "tilt_degrees": 15,
+      "usable_area_m2": null,
+      "tilt_source": "User explicitly states SSW is 15 degrees; section C-C on page 7 labels 15 degrees.",
+      "tilt_status": "user_confirmed_supported_by_section",
+      "drawing_section": "C2",
+      "drawing_section_mapping_status": "inferred_from_layout",
+      "gross_surface_dimensions_m": [
+        3.5,
+        4.8
+      ],
+      "gross_surface_area_m2": 16.8,
+      "area_source": "Page 1 area table C2; gross roof surface, not verified usable panel area.",
+      "orientation_source": "sources/roof-ssw-compass.jpg",
+      "orientation_method": "Phone compass aligned by user; north-reference setting unknown."
+    },
+    {
+      "id": "roof-2",
+      "name": "WNW roof",
+      "image_reference": "Panel group on the left",
+      "compass_direction": "WNW",
+      "approximate_bearing_degrees": 292.5,
+      "measured_bearing_degrees": 289,
+      "tilt_degrees": 38,
+      "usable_area_m2": null,
+      "drawing_section": "A1",
+      "drawing_section_mapping_status": "inferred_from_layout",
+      "gross_surface_dimensions_m": [
+        3.1,
+        9.0
+      ],
+      "gross_surface_area_m2": 27.9,
+      "area_source": "Page 1 area table A1; gross roof surface, not verified usable panel area.",
+      "pitch_estimate_degrees": 38,
+      "pitch_estimate_status": "approximate_visual_estimate_only",
+      "pitch_estimate_source": "Page 3 south elevation main west roof edge; approximate drawing estimate, no explicit pitch dimension.",
+      "orientation_source": "sources/roof-wnw-compass.jpg",
+      "orientation_method": "Phone compass aligned by user; north-reference setting unknown.",
+      "tilt_status": "drawing_estimate_adopted_for_simulation",
+      "tilt_source": "Approximately 38 degrees, estimated from the south elevation on page 3 of the roof drawing. Adopted for simulation following user correction; not a measured pitch."
+    },
+    {
+      "id": "roof-3",
+      "name": "NNE roof",
+      "image_reference": "Opposite side of the SSW roof",
+      "compass_direction": "NNE",
+      "approximate_bearing_degrees": 19,
+      "measured_bearing_degrees": 19,
+      "tilt_degrees": 15,
+      "usable_area_m2": null,
+      "tilt_source": "User: opposite SSW roof, same dimensions and 15 degree pitch; bearing derived as (199 + 180) mod 360.",
+      "tilt_status": "user_assumption",
+      "drawing_section": "C2",
+      "drawing_section_mapping_status": "user_reported_opposite_ssw",
+      "gross_surface_dimensions_m": [
+        3.5,
+        4.8
+      ],
+      "gross_surface_area_m2": 16.8,
+      "area_source": "Page 1 area table C2; gross roof surface, not verified usable panel area.",
+      "orientation_source": "sources/roof-ssw-compass.jpg",
+      "orientation_method": "Phone compass aligned by user; north-reference setting unknown."
+    }
+  ],
+  "panel_allocation": "Not inferred for proposals from the image.",
+  "deferred": "Shading on west side of the second larger roof.",
+  "location": {
+    "address": "Granliden 10",
+    "postal_code": "243 72",
+    "locality": "Tjörnarp",
+    "country": "Sweden",
+    "latitude": 55.99883,
+    "longitude": 13.63027,
+    "source": "User-provided home-location screenshot, 2026-10-16"
+  },
+  "roof_measurement_source": {
+    "path": "sources/roof-measurements.pdf",
+    "received_on": "2026-10-16",
+    "pages_visually_reviewed": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "section_mapping_status": "inferred_from_elevations_and_user_panel_layout",
+    "notes": "Area-table width/height are roof surface measurements, not a rise/run pair. Do not infer pitch from their ratio."
+  },
+  "orientation_revision": 3
+}
