@@ -105,3 +105,10 @@ main:has(#page-compare:not([hidden])){padding-top:16px}#page-compare>.proposal-g
  #global-date-navigation .date-nav-trail{gap:7px}
  #global-date-navigation .date-crumb{font-size:12px;padding:3px 0}
 }
+.simulation-status{display:flex;align-items:center;gap:10px;color:var(--green);font-weight:600;line-height:1.6}
+.simulation-spinner{display:inline-block;flex:0 0 18px;width:18px;height:18px;border:2px solid #dce5dc;border-top-color:var(--green);border-radius:50%;animation:simulation-spin .8s linear infinite}
+#proposals>.simulation-skeleton{grid-column:1/-1;border:1px solid var(--border);border-radius:10px;background:white;padding:24px;width:100%}
+.payback-row.simulation-pending .payback-track{background:linear-gradient(90deg,#edf1eb 25%,#f8faf6 50%,#edf1eb 75%);background-size:200% 100%;animation:skeleton-shimmer 1.5s ease-in-out infinite}
+@keyframes simulation-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.simulation-spinner,.payback-row.simulation-pending .payback-track{animation:none}}
+@media(min-width:761px){.shell>nav[aria-label="Main navigation"]{position:sticky;top:0;align-self:start;height:100dvh;overflow-y:auto}}
