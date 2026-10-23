@@ -117,3 +117,21 @@ main:has(#page-compare:not([hidden])){padding-top:16px}#page-compare>.proposal-g
  #global-date-navigation{top:45px}
 }
 main{align-self:start;margin:0 auto}
+/* Independent graph panels share the available width. */
+#page-strategy>.content-card,#page-roi>.content-card,#page-maximum>.content-card{padding:0;background:transparent;border:0;border-radius:0}
+#arbitrage-proposals,#maximum-proposals{padding:18px 24px 24px;margin:0 0 20px;background:#fff;border:1px solid var(--border);border-radius:10px}
+#arbitrage-results,#roi-results,#maximum-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:20px;align-items:start}
+#arbitrage-results>:not(figure),#roi-results>:not(figure),#maximum-results>:not(figure){grid-column:1/-1}
+#arbitrage-results>figure,#roi-results>figure,#maximum-results>figure{min-width:0;margin:0;padding:24px;background:#fff;border:1px solid var(--border);border-radius:10px}
+#arbitrage-results>details,#roi-results>details,#maximum-results>details{padding:24px;background:#fff;border:1px solid var(--border);border-radius:10px}
+#page-compare .payback-chart{padding:0;background:transparent;border:0;border-radius:0}
+#page-compare .payback-chart .chart-graph-view,#page-compare .payback-chart .chart-table-view{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:20px;align-items:start}
+#page-compare .payback-legend{grid-column:1/-1;margin:0}
+#page-compare .payback-group,#page-compare .chart-table-group{margin:0;padding:24px;background:#fff;border:1px solid var(--border);border-radius:10px;min-width:0}
+#page-compare .payback-group h3{margin-top:0}
+#roi-results .metric-bar-row{grid-template-columns:minmax(0,1fr) 110px;gap:8px}
+#roi-results .metric-bar-row>span:first-child{grid-column:1/-1}
+@media(max-width:760px){
+ #arbitrage-results,#roi-results,#maximum-results,#page-compare .payback-chart .chart-graph-view,#page-compare .payback-chart .chart-table-view{grid-template-columns:minmax(0,1fr)}
+ #arbitrage-results>figure,#roi-results>figure,#maximum-results>figure,#page-compare .payback-group,#page-compare .chart-table-group{padding:18px}
+}
