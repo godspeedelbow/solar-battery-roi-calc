@@ -116,3 +116,4 @@ main:has(#page-compare:not([hidden])){padding-top:16px}#page-compare>.proposal-g
  .shell>nav[aria-label="Main navigation"]{position:sticky;top:0;z-index:30;height:45px;align-items:center}
  #global-date-navigation{top:45px}
 }
+main{align-self:start;margin:0 auto}
