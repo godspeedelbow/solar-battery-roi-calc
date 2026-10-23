@@ -3,7 +3,7 @@ import {ensureShading} from './shading.js?v=northern-trees';
 export function scenarioFromCatalog(record) {
  return {
   id:`preset-${record.id}`,sourcePresetId:record.id,name:record.name,catalogRevision:record.catalog_revision??1,supplier:structuredClone(record.supplier??null),
-  cost:record.price.total_after_deduction_sek,panelCount:record.solar.panel_count,
+  kind:record.status==='scenario'?'scenario':'proposal',cost:record.price.total_after_deduction_sek,panelCount:record.solar.panel_count,
   panelWatts:record.solar.panel_watts,panels:record.solar.roof_allocations.map(r=>r.panel_count),
   inverterKw:record.inverter.ac_kw,batteryKwh:record.battery.usable_capacity_kwh,
   reportedBatteryKwh:record.battery.reported_capacity_kwh,
@@ -38,6 +38,7 @@ export function mergeCatalog(project,catalog){
    }
   }
   if(existing&&JSON.stringify(existing.catalogEvidence?.installerClaims)!==JSON.stringify(fresh.catalogEvidence.installerClaims)){existing.catalogEvidence??={};existing.catalogEvidence.installerClaims=structuredClone(fresh.catalogEvidence.installerClaims);updated++;}
+  if(existing&&!existing.kind){existing.kind=fresh.kind;updated++;}
   if(seen.has(record.id))continue;
   if(!existing){next.proposals.push(fresh);added++;}
   seen.add(record.id);

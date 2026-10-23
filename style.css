@@ -83,3 +83,25 @@ main:has(#page-compare:not([hidden])){padding-top:16px}#page-compare>.proposal-g
 .chart-view-toggle{display:flex;gap:3px;margin:10px 0 16px}.chart-view-toggle button{padding:7px 12px;border-radius:6px;background:#edf1e7;color:var(--green)}.chart-view-toggle button[aria-pressed=true]{background:var(--green);color:white}.chart-table-view{max-width:100%;overflow-x:auto}.chart-table-view table{width:100%;border-collapse:collapse;font-size:12px}.chart-table-view th,.chart-table-view td{padding:10px 12px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}.chart-table-view th:first-child{text-align:left;white-space:normal;min-width:100px}.chart-table-view thead{background:var(--paper)}.chart-table-view tbody th{font-weight:500}.chart-table-view button{background:none;color:var(--green);text-align:left;padding:0;text-decoration:underline;font:inherit}
 
 .chart-table-group+.chart-table-group{margin-top:28px}.chart-table-group h3{margin:0 0 12px}.chart-table-group{min-width:0}
+
+.proposal-kind-tag{display:inline-block;vertical-align:middle;margin-right:5px;padding:3px 7px;border:1px solid #ceddd1;border-radius:5px;background:#eaf1eb;color:#376450;font-size:10px;font-weight:600;line-height:1.3;white-space:nowrap;letter-spacing:0}.proposal-kind-tag.scenario{background:#f4eee3;border-color:#e3d5bf;color:#88612f}#proposal-form select{display:block;width:100%;margin-top:8px;padding:11px 12px;border:1px solid var(--border);border-radius:6px;background:var(--paper);font:inherit;color:var(--ink)}
+
+/* The main menu scrolls with the page; only the date bar stays at the top. */
+.shell>nav[aria-label="Main navigation"]{position:static}
+.proposal-switcher{position:static}
+@media(max-width:760px){
+ header{min-height:54px;padding:9px 16px}
+ .logo{width:28px;height:28px;font-size:25px;line-height:25px;border-radius:8px}
+ .brand{font-size:20px}
+ .shell>nav[aria-label="Main navigation"]{padding:4px 8px;gap:2px;scroll-padding-inline:8px}
+ .shell>nav .nav-item{padding:8px;gap:5px;min-height:36px}
+ .shell>nav .nav-item span{font-size:11px;white-space:nowrap}
+ main{padding-top:8px}
+ #global-date-navigation{min-height:0;padding:5px 0;margin-bottom:16px;gap:4px 12px}
+ #global-date-navigation .date-year-selector{gap:7px;flex-wrap:nowrap}
+ #global-date-navigation .history-period-tabs{padding:2px;border-radius:7px}
+ #global-date-navigation .history-period-button{padding:7px 9px;font-size:12px}
+ #global-date-navigation .date-nav-range{font-size:11px}
+ #global-date-navigation .date-nav-trail{gap:7px}
+ #global-date-navigation .date-crumb{font-size:12px;padding:3px 0}
+}
