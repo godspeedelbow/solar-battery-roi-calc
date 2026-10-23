@@ -112,3 +112,7 @@ main:has(#page-compare:not([hidden])){padding-top:16px}#page-compare>.proposal-g
 @keyframes simulation-spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.simulation-spinner,.payback-row.simulation-pending .payback-track{animation:none}}
 @media(min-width:761px){.shell>nav[aria-label="Main navigation"]{position:sticky;top:0;align-self:start;height:100dvh;overflow-y:auto}}
+@media(max-width:760px){
+ .shell>nav[aria-label="Main navigation"]{position:sticky;top:0;z-index:30;height:45px;align-items:center}
+ #global-date-navigation{top:45px}
+}
