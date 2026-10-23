@@ -1,5 +1,5 @@
 import {chartModeControl} from './chart-view.js?v=global-view';
-import {proposalKind,proposalLabel,appendProposalName} from './proposal-kind.js?v=plain-tags';
+import {proposalKind,proposalLabel,appendProposalName,orderProposals} from './proposal-kind.js?v=ordered-scenarios';
 import {rawUsageYear,usageCsv} from './usage-export.js';
 import {createCalculationCache} from './calculation-cache.js';
 import {metricBars} from './metric-bars.js?v=global-view';
@@ -36,7 +36,7 @@ const error=message=>{$('error').hidden=!message;$('error').textContent=message;
 try{const stored=await loadStoredProject(STORAGE_KEY);if(stored)project=validateProject(stored);}catch(e){error(`Could not load saved project: ${e.message}. Existing storage has not been overwritten.`);}
 try{const response=await fetch('./data/consumption/usage.json',{cache:'no-store'});if(!response.ok)throw Error('Usage data could not be loaded.');const data=await response.json();rawUsageData=data;if(project.consumption?.revision!==data.revision){project.consumption={name:data.name,revision:data.revision,source:data.source,timezone:data.timezone,timestampBasis:data.timestampBasis,rows:data.referenceRows,imputations:data.imputations,invoiceReconciliation:data.invoiceReconciliation};validateProject(project);await storeProject(project);}}catch(e){error('Consumption import failed: '+e.message);}
 
-function save(){try{validateProject(project);if(appReady)scheduleAutomaticSimulations();$('save-state').textContent='Saving locally...';storeProject(project).then(()=>$('save-state').textContent='Saved on this computer').catch(e=>{error('Local save failed: '+e.message);$('save-state').textContent='Changes are not saved';});return true;}catch(e){error('Unable to save: '+e.message);return false;}}
+function save(){try{validateProject(project);orderProposals(project.proposals);if(appReady)scheduleAutomaticSimulations();$('save-state').textContent='Saving locally...';storeProject(project).then(()=>$('save-state').textContent='Saved on this computer').catch(e=>{error('Local save failed: '+e.message);$('save-state').textContent='Changes are not saved';});return true;}catch(e){error('Unable to save: '+e.message);return false;}}
 
 function node(tag,text,className){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(className)n.className=className;return n;}
 function button(label,action,className='subtle'){const b=node('button',label,className);b.type='button';b.onclick=action;return b;}
@@ -150,7 +150,7 @@ function renderEvidence(p){
  const details=document.createElement('details');details.append(node('summary','Original source follow-ups'));
  const list=node('ul',undefined,'missing-list');for(const item of evidence.missingInputs)list.append(node('li',item.follow_up));details.append(list);box.append(details,node('p','Source flags describe the original quote. Entering an override does not mark the original document as verified.','small'));
 }
-async function loadPresets(){try{const response=await fetch('./data/proposals.json',{cache:'no-store'});if(!response.ok)throw Error('Catalog could not be loaded.');const catalog=await response.json();const merged=mergeCatalog(project,catalog);project=merged.project;if(merged.added||merged.updated||merged.removed)save();renderCompare();}catch(e){error(`Proposal presets unavailable: ${e.message}`);}}
+async function loadPresets(){try{const response=await fetch('./data/proposals.json',{cache:'no-store'});if(!response.ok)throw Error('Catalog could not be loaded.');const catalog=await response.json();const merged=mergeCatalog(project,catalog);project=merged.project;orderProposals(project.proposals);if(merged.added||merged.updated||merged.removed)save();renderCompare();}catch(e){error(`Proposal presets unavailable: ${e.message}`);}}
 await loadPresets();catalogLoading=false;renderCompare();
 try{const response=await fetch('./data/house.json',{cache:'no-store'});if(!response.ok)throw Error('House reference unavailable.');const result=mergeHouseReference(project,await response.json());project=result.project;if(result.changed)save();renderHouse();renderCompare();}catch(e){error(e.message);}
 
