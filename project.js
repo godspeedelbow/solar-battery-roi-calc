@@ -3,7 +3,7 @@ import {validateShading} from './shading.js?v=northern-trees';
 import {calculateRoi,roiSettings} from './roi.js';
 import {arbitrageSettings} from './arbitrage.js?v=cash-no-wear';
 import {validatePrices} from './prices.js';
-import {solarSettings} from './solar.js?v=nne-final';
+import {solarSettings} from './solar.js?v=pvgis-inputs-v2';
 import {validateEnvironment} from './environment.js';
 import {panelSummary} from './catalog.js';
 export const STORAGE_KEY = 'solar-household-project-v1';
@@ -24,6 +24,7 @@ export function validateProject(p){
  if(p.arbitrage?.overrides)for(const proposal of p.proposals)arbitrageSettings(p,proposal);
  if(p.roi?.overrides)for(const proposal of p.proposals)if(p.roi.overrides[proposal.id])calculateRoi(roiSettings(p,proposal,0));
  if(p.prices!=null)validatePrices(p.prices);
+ if(p.solarInputSource!=null&&!['open-meteo','sarah3','era5'].includes(p.solarInputSource))throw Error('Invalid solar input source.');
  if(p.solarModel!=null)solarSettings(p.solarModel);
  if(p.environment!=null)validateEnvironment(p.environment);
  return p;

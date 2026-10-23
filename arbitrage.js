@@ -1,5 +1,5 @@
 import {localStamp} from './calendar.js';
-import {simulateSolar} from './solar.js?v=nne-final';
+import {simulateSolar} from './solar.js?v=pvgis-inputs-v2';
 import {importCharge} from './tariffs.js';
 const local=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Stockholm',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hourCycle:'h23'});
 const parts=time=>Object.fromEntries(local.formatToParts(new Date(time)).map(p=>[p.type,p.value]));

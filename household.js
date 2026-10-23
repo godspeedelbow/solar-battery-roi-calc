@@ -1,5 +1,5 @@
 import {localStamp} from './calendar.js';
-import {simulateSolar} from './solar.js?v=nne-final';
+import {simulateSolar} from './solar.js?v=pvgis-inputs-v2';
 import {importCharge} from './tariffs.js';
 import {arbitrageSettings} from './arbitrage.js?v=cash-no-wear';
 import {referenceWindow} from './reference-period.js';
