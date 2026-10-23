@@ -145,3 +145,9 @@ main{align-self:start;margin:0 auto}
 #page-data .content-card{min-width:0;margin:0}
 @media(max-width:760px){#page-data{grid-template-columns:minmax(0,1fr)}}
 #roi-results .metric-bar-row strong{font-weight:400}
+#maximum-results>.grouped-savings-chart{grid-column:1/-1;padding:0;border:0;background:transparent}
+#maximum-results>.grouped-savings-chart .chart-graph-view,#maximum-results>.grouped-savings-chart .chart-table-view{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:20px;align-items:start}
+#maximum-results .savings-bar-legend,#maximum-results>.grouped-savings-chart .chart-graph-view>p{grid-column:1/-1;margin:0}
+#maximum-results .savings-proposal-group,#maximum-results>.grouped-savings-chart .chart-table-group{margin:0;padding:24px;background:#fff;border:1px solid var(--border);border-radius:10px;min-width:0}
+#maximum-results .savings-proposal-group h3{margin-top:0}
+@media(max-width:760px){#maximum-results>.grouped-savings-chart .chart-graph-view,#maximum-results>.grouped-savings-chart .chart-table-view{grid-template-columns:minmax(0,1fr)}#maximum-results .savings-proposal-group,#maximum-results>.grouped-savings-chart .chart-table-group{padding:18px}}
