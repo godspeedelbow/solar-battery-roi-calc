@@ -151,3 +151,4 @@ main{align-self:start;margin:0 auto}
 #maximum-results .savings-proposal-group,#maximum-results>.grouped-savings-chart .chart-table-group{margin:0;padding:24px;background:#fff;border:1px solid var(--border);border-radius:10px;min-width:0}
 #maximum-results .savings-proposal-group h3{margin-top:0}
 @media(max-width:760px){#maximum-results>.grouped-savings-chart .chart-graph-view,#maximum-results>.grouped-savings-chart .chart-table-view{grid-template-columns:minmax(0,1fr)}#maximum-results .savings-proposal-group,#maximum-results>.grouped-savings-chart .chart-table-group{padding:18px}}
+.payback-row strong{font-weight:400}
